@@ -34,7 +34,7 @@ export async function sendAdminAction({ adminKey, resource, action, item, id }) 
 }
 
 async function postToScript(body) {
-  if (!scriptEndpoint || scriptEndpoint.includes('AKfycbwc-bTdBcf6Xd5qJr4Ng1LiKOzKtM6GK1WsIr4Ds6hfNr_EzA9lmegZr01ohb_U9HvzzA')) {
+  if (!scriptEndpoint || scriptEndpoint.includes('AKfycbxdcGI5g14LEgNgsItFfBx0Y57JDXOqm1fRSUhQiqFC9Cg8GbNLwycO5WayAhIvur-cAw')) {
     return { ok: false, message: 'Backend not configured yet — set scriptEndpoint in portfolioData.js.' }
   }
   try {
