@@ -2,7 +2,7 @@
 // Powers: (1) the contact form, (2) live projects/experience/profile data,
 // (3) the /admin CMS. Everything below in this file is only the OFFLINE
 // FALLBACK used if the script is unreachable or hasn't been deployed yet.
-export const scriptEndpoint = "https://script.google.com/macros/s/AKfycby_dhvnxDnDuYnAB3zN8JOowIkPJQ8tYcfq2KlScF9AoMQNqxM9ya18De9UWgNwmFMvsw/exec";
+export const scriptEndpoint = "https://script.google.com/macros/s/AKfycbwc-bTdBcf6Xd5qJr4Ng1LiKOzKtM6GK1WsIr4Ds6hfNr_EzA9lmegZr01ohb_U9HvzzA/exec";
 
 export const profile = {
   name: "Kumaran M",
