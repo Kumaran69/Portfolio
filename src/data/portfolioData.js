@@ -3,7 +3,6 @@
 // (3) the /admin CMS. Everything below in this file is only the OFFLINE
 // FALLBACK used if the script is unreachable or hasn't been deployed yet.
 export const scriptEndpoint = "https://script.google.com/macros/s/AKfycbxdcGI5g14LEgNgsItFfBx0Y57JDXOqm1fRSUhQiqFC9Cg8GbNLwycO5WayAhIvur-cAw/exec";
-
 export const profile = {
   name: "Kumaran M",
   role: "Full-Stack Developer  ·  AI/RAG Systems  ·  Cloud & DevOps",
