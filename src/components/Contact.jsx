@@ -11,7 +11,7 @@ const STATUS = {
   SEND_ERROR: 'send_error',
 }
 
-const EMPTY_FIELDS = { name: '', email: '', budget: '', message: '', company: '' }
+const EMPTY_FIELDS = { name: '', email: '', contact: '', message: '', company: '' }
 
 export default function Contact() {
   const [fields, setFields] = useState(EMPTY_FIELDS)
@@ -117,13 +117,14 @@ export default function Contact() {
                 </div>
 
                 <div className="form-row">
-                  <label htmlFor="budget">Budget / timeline (optional)</label>
+                  <label htmlFor="contact">Contact No</label>
                   <input
-                    id="budget"
+                    id="contact"
                     type="text"
-                    value={fields.budget}
-                    onChange={update('budget')}
-                    placeholder="e.g. $500–1000, needed in 3 weeks"
+                    value={fields.contact}
+                    onChange={update('contact')}
+                    placeholder="e.g. 123-456-7890"
+                    required
                   />
                 </div>
 

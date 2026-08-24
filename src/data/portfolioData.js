@@ -14,9 +14,9 @@ export const profile = {
   resumeUrl: "/Kumaran_M_Resume.pdf",
   availability: "Open for Full-Time, Freelance & Contract",
   summary:
-    "Computer Science undergraduate (CGPA 8.45) specializing in production-grade full-stack web applications and AI-powered systems end-to-end — from schema design and REST APIs to React interfaces, local RAG pipelines, and containerized cloud deployment. AWS Certified Cloud Practitioner equipped with industry-tested internship experience.",
+    "Computer Science undergraduate specializing in production-grade full-stack web applications and AI-powered systems end-to-end — from schema design and REST APIs to React interfaces, local RAG pipelines, and containerized cloud deployment. AWS Certified Cloud Practitioner equipped with industry-tested internship experience.",
   recruiterBadges: [
-    { label: "CGPA 8.45 / 10", icon: "🎓", detail: "BE Computer Science (2023 - 2027)" },
+    { label: "Final Year", icon: "🎓", detail: "BE Computer Science (2023 - 2027)" },
     { label: "AWS Certified", icon: "☁️", detail: "Cloud Practitioner" },
     { label: "2 Developer Internships", icon: "💼", detail: "MERN Stack & Mobile Flutter" },
     { label: "3 Production Builds", icon: "⚡", detail: "AI, Web & Machine Learning" }
