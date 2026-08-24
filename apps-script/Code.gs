@@ -267,7 +267,7 @@ function readMessages() {
 }
 
 function getSpreadsheet() {
-  const id = getProperty('1ukMQlWIA6oqfsVs6lSr0aEROIc839tcL_lqY21i060w');
+  const id = getProperty('SHEET_ID');
   if (!id) throw new Error('Missing SHEET_ID script property.');
   return SpreadsheetApp.openById(id);
 }
