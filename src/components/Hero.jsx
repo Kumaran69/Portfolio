@@ -111,7 +111,7 @@ export default function Hero() {
             </div>
             <div>
               <span>Degree &amp; GPA</span>
-              <strong>B.E. CSE (CGPA 8.45)</strong>
+              <strong>B.E. CSE Final Year</strong>
             </div>
             <div>
               <span>Cloud Cert</span>
