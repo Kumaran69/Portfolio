@@ -180,7 +180,7 @@ export const credentials = {
   education: {
     school: "Kamaraj College of Engineering and Technology",
     degree: "B.E. Computer Science & Engineering",
-    score: "CGPA 8.45 / 10.0",
+    score: "Final Year",
     date: "2023 – 2027",
     highlights: ["Data Structures & Algorithms", "Database Management", "Cloud Computing", "Software Engineering"]
   },

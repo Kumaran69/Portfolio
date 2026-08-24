@@ -256,7 +256,7 @@ function updateProfile(item) {
 }
 
 function readMessages() {
-  const sheet = ensureSheet(SHEETS.MESSAGES, ['Timestamp', 'Name', 'Email', 'Budget / Timeline', 'Message']);
+  const sheet = ensureSheet(SHEETS.MESSAGES, ['Timestamp', 'Name', 'Email', 'Contact No', 'Message']);
   const values = sheet.getDataRange().getValues();
   const out = [];
   for (let i = 1; i < values.length; i++) {
@@ -264,14 +264,14 @@ function readMessages() {
     const timestamp = row[0];
     const name = row[1];
     const email = row[2];
-    const budget = row[3];
+    const contact = row[3];
     const message = row[4];
     if (!name && !email && !message) continue;
     out.push({
       timestamp: timestamp instanceof Date ? timestamp.toLocaleString() : String(timestamp),
       name: name,
       email: email,
-      budget: budget,
+      contact: contact,
       message: message,
     });
   }
