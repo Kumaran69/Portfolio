@@ -53,7 +53,7 @@ export default function Contact() {
     const result = await sendContactMessage({
       name: fields.name,
       email: fields.email,
-      budget: fields.budget,
+      contact: fields.contact,
       message: fields.message,
     })
 
@@ -120,7 +120,7 @@ export default function Contact() {
                   <label htmlFor="contact">Contact No</label>
                   <input
                     id="contact"
-                    type="number"
+                    type="text"
                     value={fields.contact}
                     onChange={update('contact')}
                     placeholder="e.g. 123-456-7890"
