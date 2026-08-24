@@ -64,7 +64,7 @@ function handleContact(body) {
   const name = (body.name || '').toString().trim();
   const email = (body.email || '').toString().trim();
   const message = (body.message || '').toString().trim();
-  const budget = (body.budget || '').toString().trim();
+  const contact = (body.contact || '').toString().trim();
 
   if (!name || !email || !message) {
     return jsonOutput({ ok: false, message: 'Name, email, and message are required.' });
@@ -73,8 +73,8 @@ function handleContact(body) {
     return jsonOutput({ ok: false, message: 'That email address looks invalid.' });
   }
 
-  const sheet = ensureSheet(SHEETS.MESSAGES, ['Timestamp', 'Name', 'Email', 'Budget / Timeline', 'Message']);
-  sheet.appendRow([new Date(), name, email, budget, message]);
+  const sheet = ensureSheet(SHEETS.MESSAGES, ['Timestamp', 'Name', 'Email', 'Contact No', 'Message']);
+  sheet.appendRow([new Date(), name, email, contact, message]);
 
   try {
     sendThankYouEmail(name, email, message);
@@ -84,7 +84,7 @@ function handleContact(body) {
   }
 
   try {
-    notifyOwner(name, email, budget, message);
+    notifyOwner(name, email, contact, message);
   } catch (err) {
     // Non-fatal — owner can still see it in the sheet.
   }
@@ -123,13 +123,13 @@ function sendThankYouEmail(name, email, message) {
   });
 }
 
-function notifyOwner(name, email, budget, message) {
+function notifyOwner(name, email, contact, message) {
   const ownerEmail = getProperty('OWNER_EMAIL') || Session.getEffectiveUser().getEmail();
   if (!ownerEmail) return;
   const subject = 'New portfolio inquiry from ' + name;
   const body =
     'New message via your portfolio contact form:\n\n' +
-    'Name: ' + name + '\nEmail: ' + email + '\nBudget/timeline: ' + (budget || '—') + '\n\nMessage:\n' + message;
+    'Name: ' + name + '\nEmail: ' + email + '\nContact No: ' + (contact || '—') + '\n\nMessage:\n' + message;
   MailApp.sendEmail(ownerEmail, subject, body);
 }
 
