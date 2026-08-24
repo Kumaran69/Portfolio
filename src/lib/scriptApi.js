@@ -6,7 +6,7 @@ import { scriptEndpoint } from '../data/portfolioData'
  * back to the static seed data instead of breaking the page.
  */
 export async function fetchLiveData() {
-  if (!scriptEndpoint || scriptEndpoint.includes('YOUR_DEPLOYMENT_ID')) return null
+  if (!scriptEndpoint || scriptEndpoint.includes('AKfycbxdcGI5g14LEgNgsItFfBx0Y57JDXOqm1fRSUhQiqFC9Cg8GbNLwycO5WayAhIvur-cAw')) return null
   try {
     const res = await fetch(`${scriptEndpoint}?action=read`, { method: 'GET' })
     if (!res.ok) return null
