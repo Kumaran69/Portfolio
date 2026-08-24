@@ -120,7 +120,7 @@ export default function Contact() {
                   <label htmlFor="contact">Contact No</label>
                   <input
                     id="contact"
-                    type="text"
+                    type="number"
                     value={fields.contact}
                     onChange={update('contact')}
                     placeholder="e.g. 123-456-7890"
