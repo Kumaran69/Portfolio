@@ -6,7 +6,7 @@ import { scriptEndpoint } from '../data/portfolioData'
  * back to the static seed data instead of breaking the page.
  */
 export async function fetchLiveData() {
-  if (!scriptEndpoint || scriptEndpoint.includes('AKfycbxdcGI5g14LEgNgsItFfBx0Y57JDXOqm1fRSUhQiqFC9Cg8GbNLwycO5WayAhIvur-cAw')) return null
+  if (!isConfigured()) return null
   try {
     const res = await fetch(`${scriptEndpoint}?action=read`, { method: 'GET' })
     if (!res.ok) return null
@@ -33,8 +33,17 @@ export async function sendAdminAction({ adminKey, resource, action, item, id }) 
   return postToScript({ type: 'admin', adminKey, resource, action, item, id })
 }
 
+// A real deployed Apps Script URL always looks like:
+//   https://script.google.com/macros/s/<id>/exec
+// This just checks the endpoint is a non-empty script.google.com URL —
+// it does NOT compare against any specific deployment ID, so it keeps
+// working correctly no matter what your real ID is.
+function isConfigured() {
+  return typeof scriptEndpoint === 'string' && /^https:\/\/script\.google\.com\/macros\/s\/.+\/exec$/.test(scriptEndpoint)
+}
+
 async function postToScript(body) {
-  if (!scriptEndpoint || scriptEndpoint.includes('AKfycbxdcGI5g14LEgNgsItFfBx0Y57JDXOqm1fRSUhQiqFC9Cg8GbNLwycO5WayAhIvur-cAw')) {
+  if (!isConfigured()) {
     return { ok: false, message: 'Backend not configured yet — set scriptEndpoint in portfolioData.js.' }
   }
   try {

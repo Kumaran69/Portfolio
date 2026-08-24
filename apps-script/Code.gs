@@ -33,7 +33,7 @@ const SHEETS = {
 };
 
 function doGet(e) {
-  const action = e?.parameter?.action;
+  const action = e && e.parameter ? e.parameter.action : null;
   if (action === 'read') {
     return jsonOutput({
       ok: true,
@@ -95,24 +95,25 @@ function handleContact(body) {
 function sendThankYouEmail(name, email, message) {
   const profile = readProfile();
   const displayName = profile.senderName || 'Kumaran M';
-  const subject = `Thanks for reaching out, ${name.split(' ')[0]}!`;
+  const firstName = name.split(' ')[0];
+  const subject = 'Thanks for reaching out, ' + firstName + '!';
 
   const plainBody =
-    `Hi ${name.split(' ')[0]},\n\n` +
-    `Thank you for choosing to reach out — I've received your message and really appreciate you taking the time to share the details of your project.\n\n` +
-    `Here's a quick copy of what you sent, for your records:\n"${message}"\n\n` +
-    `I personally review every inquiry and will get back to you within one business day with next steps or any clarifying questions.\n\n` +
-    `In the meantime, feel free to explore more of my work or connect on LinkedIn.\n\n` +
-    `Best regards,\n${displayName}`;
+    'Hi ' + firstName + ',\n\n' +
+    "Thank you for choosing to reach out — I've received your message and really appreciate you taking the time to share the details of your project.\n\n" +
+    "Here's a quick copy of what you sent, for your records:\n\"" + message + '"\n\n' +
+    'I personally review every inquiry and will get back to you within one business day with next steps or any clarifying questions.\n\n' +
+    'In the meantime, feel free to explore more of my work or connect on LinkedIn.\n\n' +
+    'Best regards,\n' + displayName;
 
   const htmlBody =
-    `<div style="font-family:Arial,Helvetica,sans-serif;max-width:520px;margin:0 auto;color:#1a1a1a;line-height:1.6;">` +
-    `<h2 style="margin-bottom:4px;">Thank you for choosing to reach out, ${escapeHtml(name.split(' ')[0])}!</h2>` +
-    `<p>I've received your message and really appreciate you taking the time to share the details of your project.</p>` +
-    `<blockquote style="border-left:3px solid #0284C7;padding:10px 16px;color:#444;background:#f6f8fa;margin:16px 0;">${escapeHtml(message)}</blockquote>` +
-    `<p>I personally review every inquiry and will get back to you within <strong>one business day</strong> with next steps or any clarifying questions.</p>` +
-    `<p style="margin-top:28px;">Best regards,<br><strong>${escapeHtml(displayName)}</strong></p>` +
-    `</div>`;
+    '<div style="font-family:Arial,Helvetica,sans-serif;max-width:520px;margin:0 auto;color:#1a1a1a;line-height:1.6;">' +
+    '<h2 style="margin-bottom:4px;">Thank you for choosing to reach out, ' + escapeHtml(firstName) + '!</h2>' +
+    "<p>I've received your message and really appreciate you taking the time to share the details of your project.</p>" +
+    '<blockquote style="border-left:3px solid #0284C7;padding:10px 16px;color:#444;background:#f6f8fa;margin:16px 0;">' + escapeHtml(message) + '</blockquote>' +
+    '<p>I personally review every inquiry and will get back to you within <strong>one business day</strong> with next steps or any clarifying questions.</p>' +
+    '<p style="margin-top:28px;">Best regards,<br><strong>' + escapeHtml(displayName) + '</strong></p>' +
+    '</div>';
 
   MailApp.sendEmail({
     to: email,
@@ -125,10 +126,10 @@ function sendThankYouEmail(name, email, message) {
 function notifyOwner(name, email, budget, message) {
   const ownerEmail = getProperty('OWNER_EMAIL') || Session.getEffectiveUser().getEmail();
   if (!ownerEmail) return;
-  const subject = `New portfolio inquiry from ${name}`;
+  const subject = 'New portfolio inquiry from ' + name;
   const body =
-    `New message via your portfolio contact form:\n\n` +
-    `Name: ${name}\nEmail: ${email}\nBudget/timeline: ${budget || '—'}\n\nMessage:\n${message}`;
+    'New message via your portfolio contact form:\n\n' +
+    'Name: ' + name + '\nEmail: ' + email + '\nBudget/timeline: ' + (budget || '—') + '\n\nMessage:\n' + message;
   MailApp.sendEmail(ownerEmail, subject, body);
 }
 
@@ -138,7 +139,10 @@ function handleAdmin(body) {
     return jsonOutput({ ok: false, message: 'Invalid admin key.' });
   }
 
-  const { resource, action, item, id } = body;
+  const resource = body.resource;
+  const action = body.action;
+  const item = body.item;
+  const id = body.id;
 
   if (resource === 'auth' && action === 'verify') {
     return jsonOutput({ ok: true, message: 'Verified.' });
@@ -165,7 +169,7 @@ function handleCrud(sheetName, action, item, id, readerFn) {
   if (action === 'create') {
     if (!item || !item.id) return jsonOutput({ ok: false, message: 'Missing item id.' });
     if (findRowById(sheet, item.id) !== -1) {
-      return jsonOutput({ ok: false, message: `An item with id "${item.id}" already exists.` });
+      return jsonOutput({ ok: false, message: 'An item with id "' + item.id + '" already exists.' });
     }
     sheet.appendRow([item.id, JSON.stringify(item)]);
     return jsonOutput({ ok: true, message: 'Created.', data: readerFn() });
@@ -174,8 +178,8 @@ function handleCrud(sheetName, action, item, id, readerFn) {
   if (action === 'update') {
     if (!id) return jsonOutput({ ok: false, message: 'Missing id to update.' });
     const row = findRowById(sheet, id);
-    if (row === -1) return jsonOutput({ ok: false, message: `No item found with id "${id}".` });
-    const finalItem = { ...item, id };
+    if (row === -1) return jsonOutput({ ok: false, message: 'No item found with id "' + id + '".' });
+    const finalItem = Object.assign({}, item, { id: id });
     sheet.getRange(row, 2).setValue(JSON.stringify(finalItem));
     return jsonOutput({ ok: true, message: 'Updated.', data: readerFn() });
   }
@@ -183,7 +187,7 @@ function handleCrud(sheetName, action, item, id, readerFn) {
   if (action === 'delete') {
     if (!id) return jsonOutput({ ok: false, message: 'Missing id to delete.' });
     const row = findRowById(sheet, id);
-    if (row === -1) return jsonOutput({ ok: false, message: `No item found with id "${id}".` });
+    if (row === -1) return jsonOutput({ ok: false, message: 'No item found with id "' + id + '".' });
     sheet.deleteRow(row);
     return jsonOutput({ ok: true, message: 'Deleted.', data: readerFn() });
   }
@@ -237,7 +241,7 @@ function readProfile() {
 
 function updateProfile(item) {
   const sheet = ensureSheet(SHEETS.PROFILE, ['key', 'value']);
-  Object.keys(item).forEach((key) => {
+  Object.keys(item).forEach(function (key) {
     const values = sheet.getDataRange().getValues();
     let found = -1;
     for (let i = 1; i < values.length; i++) {
@@ -256,15 +260,24 @@ function readMessages() {
   const values = sheet.getDataRange().getValues();
   const out = [];
   for (let i = 1; i < values.length; i++) {
-    const [timestamp, name, email, budget, message] = values[i];
+    const row = values[i];
+    const timestamp = row[0];
+    const name = row[1];
+    const email = row[2];
+    const budget = row[3];
+    const message = row[4];
     if (!name && !email && !message) continue;
     out.push({
       timestamp: timestamp instanceof Date ? timestamp.toLocaleString() : String(timestamp),
-      name, email, budget, message,
+      name: name,
+      email: email,
+      budget: budget,
+      message: message,
     });
   }
   return out.reverse(); // newest first
 }
+
 
 function getSpreadsheet() {
   const id = getProperty('SHEET_ID');
@@ -297,4 +310,11 @@ function escapeHtml(str) {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
+}
+
+
+function checkProps() {
+  Logger.log('SHEET_ID = [' + PropertiesService.getScriptProperties().getProperty('SHEET_ID') + ']');
+  Logger.log('ADMIN_KEY = [' + PropertiesService.getScriptProperties().getProperty('ADMIN_KEY') + ']');
+  Logger.log('OWNER_EMAIL = [' + PropertiesService.getScriptProperties().getProperty('OWNER_EMAIL') + ']');
 }
