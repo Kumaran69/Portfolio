@@ -1,7 +1,6 @@
 import { useRef, useState } from 'react'
 import { stack } from '../data/portfolioData'
 import { usePortfolioData } from '../context/DataContext'
-import { asset } from '../src/asset' // ← update this path to wherever your asset() helper actually lives
 
 export default function Hero() {
   const { profile } = usePortfolioData()
@@ -92,7 +91,7 @@ export default function Hero() {
             <div className="profile-photo-wrap">
               <div className="profile-photo-frame">
                 <img
-                  src={asset(profile.photo)}
+                  src={profile.photo}
                   alt={`${profile.name} — profile photo`}
                   className="profile-photo"
                   loading="lazy"
@@ -126,8 +125,8 @@ export default function Hero() {
               <strong>Full-Stack / AI RAG / Cloud</strong>
             </div>
             <div>
-              <span>Degree &amp; Status</span>
-              <strong>B.E. CSE Final Year</strong>
+              <span>Degree &amp; GPA</span>
+              <strong>B.E. CSE (CGPA 8.45)</strong>
             </div>
             <div>
               <span>Cloud Cert</span>

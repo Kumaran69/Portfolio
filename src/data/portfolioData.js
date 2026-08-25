@@ -12,6 +12,7 @@ export const profile = {
   linkedin: "https://linkedin.com/in/kumaran-m-077135411",
   github: "https://github.com/Kumaran69",
   resumeUrl: "/Kumaran_M_Resume.pdf",
+  photo: "/profile.jpeg",
   availability: "Open for Full-Time, Freelance & Contract",
   summary:
     "Computer Science undergraduate specializing in production-grade full-stack web applications and AI-powered systems end-to-end — from schema design and REST APIs to React interfaces, local RAG pipelines, and containerized cloud deployment. AWS Certified Cloud Practitioner equipped with industry-tested internship experience.",
@@ -22,11 +23,6 @@ export const profile = {
     { label: "3 Production Builds", icon: "⚡", detail: "AI, Web & Machine Learning" }
   ]
 };
-// portfolioData.js
-export const profile1 = {
-  // ...
-  photo: 'profile.jpeg',
-}
 
 export const stack = [
   {
@@ -222,6 +218,3 @@ export const process = [
     detail: "Automated container builds with Docker and GitHub Actions, deployed to AWS with complete documentation.",
   },
 ];
-
-
-
