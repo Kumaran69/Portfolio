@@ -125,8 +125,8 @@ export default function Hero() {
               <strong>Full-Stack / AI RAG / Cloud</strong>
             </div>
             <div>
-              <span>Degree &amp; GPA</span>
-              <strong>B.E. CSE (CGPA 8.45)</strong>
+              <span>Degree</span>
+              <strong>B.E. CSE</strong>
             </div>
             <div>
               <span>Cloud Cert</span>
