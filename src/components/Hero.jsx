@@ -86,6 +86,21 @@ export default function Hero() {
         </div>
 
         <div className="schematic schematic-in" aria-hidden="false">
+          {/* Profile Photo */}
+          {profile.photo && (
+            <div className="profile-photo-wrap">
+              <div className="profile-photo-frame">
+                <img
+                  src={asset(profile.jpeg)}
+                  alt={`${profile.name} — profile photo`}
+                  className="profile-photo"
+                  loading="lazy"
+                />
+              </div>
+              <span className="profile-photo-ring" aria-hidden="true" />
+            </div>
+          )}
+
           <span className="schematic-label">Architecture Capability Matrix</span>
           <div className="schematic-nodes">
             {featured.map((s, i) => (
@@ -111,7 +126,7 @@ export default function Hero() {
             </div>
             <div>
               <span>Degree &amp; GPA</span>
-              <strong>B.E. CSE Final Year</strong>
+              <strong>B.E. CSE (CGPA 8.45)</strong>
             </div>
             <div>
               <span>Cloud Cert</span>
@@ -123,4 +138,3 @@ export default function Hero() {
     </section>
   )
 }
-
