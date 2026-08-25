@@ -22,6 +22,11 @@ export const profile = {
     { label: "3 Production Builds", icon: "⚡", detail: "AI, Web & Machine Learning" }
   ]
 };
+// portfolioData.js
+export const profile1 = {
+  // ...
+  photo: 'profile.jpeg',
+}
 
 export const stack = [
   {
